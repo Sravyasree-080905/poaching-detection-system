@@ -1,116 +1,560 @@
-# Intelligent Poaching Detection and Response System
+Yes 😊. You can **copy everything inside the code block below and paste it directly into your `README.md`**.
 
-AI-powered poaching detection using **YOLOv8** with a **FastAPI + MongoDB** backend and a **React (Vite)** frontend.
+---markdown
+# 🌲 Intelligent Poaching Detection and Response System
 
-## Quick start (recommended)
+An AI-powered computer vision system designed to assist forest authorities in detecting potential poaching-related activity from images and videos.
 
-### 1) Prerequisites
+The system uses **YOLOv8** for object detection, **FastAPI** for the backend API, **MongoDB** for storing detection information, and **React (Vite)** for the monitoring dashboard.
 
-- **Python 3.10+**
-- **Node.js 18+**
-- **MongoDB** running locally or a reachable MongoDB URI
+---
 
-### 2) Run the Application (Single Command)
+## 📌 Overview
 
-We have provided a unified runner script that boots both the backend API and frontend web application simultaneously. 
+Illegal poaching is difficult to monitor continuously across large forest areas. This project aims to support forest monitoring by automatically analyzing uploaded images and videos using an object detection model.
 
-1. Create your environment file:
-   - Copy `backend/.env.example` → `backend/.env`
-   - Fill in at least: `MONGO_URI`, `JWT_SECRET`
-2. Install dependencies (if you haven't already):
-   - Backend: `cd backend && python3 -m venv ../venv && source ../venv/bin/activate && pip install -r requirements.txt`
-   - Frontend: `cd frontend && npm install`
-3. Run the project from the root folder:
+The detection pipeline identifies objects of interest, records their confidence scores and detection information, and makes the results available through a web-based monitoring application.
+
+### System Flow
+
+---text
+Image / Video
+      ↓
+YOLOv8 Object Detection
+      ↓
+Detected Objects + Confidence Scores
+      ↓
+FastAPI Backend
+      ↓
+MongoDB
+      ↓
+React Monitoring Dashboard
+      ↓
+Detection / Alert Information
+---
+
+---
+
+## ✨ Key Features
+
+* 🎯 YOLOv8-based object detection
+* 🎥 Image and video analysis
+* 🧠 Custom object-detection model integration
+* ⚡ FastAPI backend
+* 🗄️ MongoDB database integration
+* 🖥️ React + Vite monitoring dashboard
+* 🔐 JWT-based authentication
+* 📧 Email-based alert functionality
+* 📊 Detection confidence and threat information
+* 📁 Storage and retrieval of detection results
+
+---
+
+## 🧠 Machine Learning
+
+The project uses **Ultralytics YOLOv8** for object detection.
+
+A custom-trained model can be loaded by the detection pipeline for identifying domain-specific objects from uploaded media.
+
+The detection pipeline works with:
+
+* Bounding boxes
+* Class labels
+* Confidence scores
+* Processed image/video frames
+
+The project architecture includes domain-specific detection classes such as:
+
+* `poacher`
+* `weapon`
+* `animal`
+* `ranger`
+
+---
+
+## 🏗️ System Architecture
+
+```text
+                    ┌──────────────────┐
+                    │   Image / Video  │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │     YOLOv8       │
+                    │ Object Detection │
+                    └────────┬─────────┘
+                             │
+                  Detection Results
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │  FastAPI Backend │
+                    └────────┬─────────┘
+                             │
+                ┌────────────┴────────────┐
+                │                         │
+                ▼                         ▼
+        ┌──────────────┐          ┌──────────────┐
+        │   MongoDB    │          │ Alert System │
+        └──────┬───────┘          └──────────────┘
+               │
+               ▼
+        ┌──────────────────┐
+        │ React Dashboard  │
+        └──────────────────┘
+```
+
+---
+
+## 🛠️ Technology Stack
+
+### Machine Learning & Computer Vision
+
+* Python
+* Ultralytics YOLOv8
+* OpenCV
+
+### Backend
+
+* FastAPI
+* Python
+* MongoDB
+* Motor / MongoDB integration
+* JWT authentication
+
+### Frontend
+
+* React
+* Vite
+* JavaScript
+* Tailwind CSS
+
+### Development Tools
+
+* Git
+* GitHub
+* VS Code
+
+---
+
+## 📂 Project Structure
+
+```text
+poaching-detection-system/
+│
+├── backend/
+│   ├── api/
+│   ├── core/
+│   ├── db/
+│   ├── schemas/
+│   ├── services/
+│   ├── main.py
+│   ├── requirements.txt
+│   └── .env.example
+│
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── model/
+│   ├── detector.py
+│   └── __init__.py
+│
+├── .gitignore
+├── README.md
+└── run.sh
+```
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+Make sure the following are installed:
+
+* Python 3.10+
+* Node.js 18+
+* MongoDB running locally or a reachable MongoDB URI
+
+---
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/Sravyasree-080905/poaching-detection-system.git
+cd poaching-detection-system
+```
+
+---
+
+## 2. Configure Environment Variables
+
+The backend provides an environment template:
+
+```text
+backend/.env.example
+```
+
+Create your local environment file from the template.
+
+### Windows
+
+```powershell
+copy backend\.env.example backend\.env
+```
+
+### Linux / macOS
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Configure the required values, including:
+
+```text
+MONGO_URI
+JWT_SECRET
+```
+
+Additional configuration options are documented in `backend/.env.example`.
+
+> ⚠️ Never commit your actual `.env` file or credentials to GitHub.
+
+---
+
+## 3. Install Backend Dependencies
+
+Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv .venv
+```
+
+### Windows
+
+```powershell
+.venv\Scripts\activate
+```
+
+### Linux / macOS
+
+```bash
+source .venv/bin/activate
+```
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Install Frontend Dependencies
+
+Open a new terminal and navigate to the frontend:
+
+```bash
+cd frontend
+```
+
+Install the required Node.js packages:
+
+```bash
+npm install
+```
+
+---
+
+# ▶️ Running the Application
+
+## Option 1: Unified Runner
+
+The repository contains a `run.sh` script intended to start the backend and frontend together.
+
+From the project root:
 
 ```bash
 ./run.sh
 ```
 
-### 3) Manual setup (FastAPI & React)
-
-1. Create your environment file:
-   - Copy `backend/.env.example` → `backend/.env`
-   - Fill in at least:
-     - `MONGO_URI`
-     - `JWT_SECRET`
-
-2. Install Python dependencies:
-
-```bash
-cd "backend"
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-```
-
-3. Start the API server:
-
-```bash
-cd "backend"
-source .venv/bin/activate
-PYTHONPATH="$PWD" uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
-
-Backend will run at:
-- API root: `http://localhost:8000/`
-- Swagger docs: `http://localhost:8000/docs`
-
-> Notes
-> - On startup, the app connects to MongoDB and loads the YOLO model once.
-> - Static output folders are created automatically under `backend/static/`.
-
-### 3) Frontend setup (React + Vite)
-
-In a new terminal:
-
-```bash
-cd "frontend"
-npm install
-npm run dev
-```
-
-Frontend will run at:
-- `http://localhost:5173`
-
-## Configuration
-
-### Backend environment variables
-
-See `backend/.env.example`.
-
-Common variables:
-- `MONGO_URI`: MongoDB connection string (e.g. `mongodb://localhost:27017`)
-- `DATABASE_NAME`: defaults to `poaching_detection_db`
-- `JWT_SECRET`: secret for signing JWT tokens
-- `BACKEND_CORS_ORIGINS`: list of allowed frontend origins
-
-### Model weights
-
-The backend uses **Ultralytics YOLOv8**. Weight files are present in the repo (examples: `yolov8n.pt`, `model/best.pt`).
-
-If you change weights or paths, check the detection code in `backend/services/detection_service.py` and/or `model/detector.py`.
-
-## Project structure (high level)
-
-- `backend/` — FastAPI app, API routes, MongoDB, services
-- `frontend/` — React app (Vite)
-- `model/` — model utilities / training artifacts
-
-## Troubleshooting
-
-### MongoDB connection errors
-
-- Ensure MongoDB is running and reachable via the `MONGO_URI` in `backend/.env`.
-- If you’re using MongoDB Atlas, make sure your IP is allowed and the URI includes credentials.
-
-### CORS issues
-
-- Add your frontend URL (e.g. `http://localhost:5173`) to `BACKEND_CORS_ORIGINS` in `backend/.env`.
-
-## Optional: run a quick smoke test
-
-- Open `http://localhost:8000/docs` and try the available endpoints.
+> On Windows, the individual backend and frontend commands below can be used if the shell script is not directly supported.
 
 ---
 
-If you want, tell me your preferred setup (Docker vs local installs), and I can add a `docker-compose.yml` that starts **MongoDB + backend + frontend** in one command.
+## Option 2: Run Backend and Frontend Separately
+
+### Start the Backend
+
+Navigate to:
+
+```bash
+cd backend
+```
+
+Activate the virtual environment and start FastAPI:
+
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+The backend API will be available at:
+
+```text
+http://localhost:8000
+```
+
+FastAPI Swagger documentation:
+
+```text
+http://localhost:8000/docs
+```
+
+---
+
+### Start the Frontend
+
+In another terminal:
+
+```bash
+cd frontend
+npm run dev
+```
+
+The React application will normally be available at:
+
+```text
+http://localhost:5173
+```
+
+---
+
+# ⚙️ Configuration
+
+Backend configuration is managed through:
+
+```text
+backend/.env
+```
+
+The available configuration variables are documented in:
+
+```text
+backend/.env.example
+```
+
+Common configuration includes:
+
+```text
+MONGO_URI
+DATABASE_NAME
+JWT_SECRET
+BACKEND_CORS_ORIGINS
+```
+
+### MongoDB
+
+The application requires MongoDB for storing application and detection information.
+
+A local MongoDB instance can be used, or the application can be configured to connect to a remote MongoDB deployment through `MONGO_URI`.
+
+---
+
+# 🤖 Detection Pipeline
+
+The detection workflow can be summarized as:
+
+```text
+1. User uploads image/video
+              ↓
+2. Backend receives the media
+              ↓
+3. YOLOv8 model processes the media
+              ↓
+4. Objects are detected
+              ↓
+5. Bounding boxes and confidence scores are generated
+              ↓
+6. Detection information is stored
+              ↓
+7. Results are displayed through the frontend
+```
+
+For video processing, frames are analyzed by the detection service and relevant detection information is recorded.
+
+---
+
+# 📊 Detection Information
+
+For each detection, the system can work with information such as:
+
+* Detected class
+* Confidence score
+* Bounding box information
+* Associated video/image
+* Detection timestamp
+* Threat-related information
+
+This information is used by the backend and frontend to provide a monitoring view of detected activity.
+
+---
+
+# 🔐 Authentication & Security
+
+The backend includes authentication functionality using JWT-based authentication.
+
+Sensitive configuration such as:
+
+* Database credentials
+* Secret keys
+* Email credentials
+
+should be stored using environment variables rather than being hard-coded in source code.
+
+The repository provides:
+
+```text
+backend/.env.example
+```
+
+as a configuration template.
+
+---
+
+# 📧 Alert System
+
+The application includes an email-based alert mechanism for relevant detection events.
+
+Alert information can include details such as:
+
+* Detected threat/object
+* Confidence score
+* Threat level
+* Detection information
+* Supporting image/frame
+
+The actual email configuration should be provided through environment variables.
+
+---
+
+# 👩‍💻 My Contribution
+
+This project was developed collaboratively as part of an AI/ML internship.
+
+My primary contribution was focused on the **AI/ML and computer vision components**, including:
+
+* Dataset preparation and preprocessing
+* Working with object-detection datasets
+* YOLOv8 model training
+* Model inference and evaluation
+* Integration of the trained detection model with the application
+* Testing the detection pipeline
+
+The overall application was developed as a team involving machine learning, backend, and frontend components.
+
+---
+
+# 🔮 Future Enhancements
+
+Potential improvements identified during development include:
+
+### 🎥 Live Camera Monitoring
+
+Support for live RTSP/HLS camera streams for continuous forest surveillance.
+
+### ⚡ Real-Time Dashboard Updates
+
+WebSocket or Server-Sent Events integration for pushing detection updates to the frontend immediately.
+
+### 📩 Alert Throttling
+
+Aggregate multiple detections from the same video instead of generating excessive individual alerts.
+
+### 🧠 Improved Spatial Reasoning
+
+Use relationships between bounding boxes and detected objects to improve threat classification.
+
+### 🔐 Enhanced Role-Based Access
+
+Improve authorization for administrative settings and sensitive system operations.
+
+### 📋 Incident Management
+
+Add structured incident-resolution workflows and investigation notes for detected events.
+
+---
+
+# 🧪 Troubleshooting
+
+## MongoDB Connection Error
+
+Make sure MongoDB is running and that the `MONGO_URI` in `backend/.env` is correct.
+
+For MongoDB Atlas, verify that:
+
+* The connection string is correct.
+* The database credentials are valid.
+* Your IP address is allowed by the Atlas network configuration.
+
+---
+
+## CORS Error
+
+If the frontend cannot communicate with the backend, verify the allowed frontend origin in:
+
+```text
+backend/.env
+```
+
+For local development, the frontend commonly runs on:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## FastAPI API Documentation
+
+The interactive API documentation can be accessed at:
+
+```text
+http://localhost:8000/docs
+```
+
+This can also be used as a quick smoke test to verify that the backend is running.
+
+---
+
+# 📌 Disclaimer
+
+This project was developed as an academic/internship project to demonstrate the application of computer vision, machine learning, backend development, and frontend technologies for wildlife protection.
+
+It is intended as a decision-support system and should not replace professional field investigation or law-enforcement procedures.
+
+---
+
+# 📄 License
+
+This project is available under the license included in this repository.
+
+---
+
+### After pasting
+
+Just do:
+
+**GitHub → `README.md` → ✏️ Edit → Ctrl+A → paste → Commit changes.**
+
+Don't make any other changes to the repository right now. Once this is saved, **we'll move directly to the Seanergy preparation**, especially your **Poaching project explanation + likely AI/ML technical questions + HR questions**, because the drive is on August 3–4. 🚀
+```
