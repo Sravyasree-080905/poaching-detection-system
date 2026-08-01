@@ -1,4 +1,3 @@
----markdown
 # 🌲 Intelligent Poaching Detection and Response System
 
 An AI-powered computer vision system designed to assist forest authorities in detecting potential poaching-related activity from images and videos.
@@ -15,7 +14,7 @@ The detection pipeline identifies objects of interest, records their confidence 
 
 ### System Flow
 
----text
+```text
 Image / Video
       ↓
 YOLOv8 Object Detection
@@ -31,7 +30,7 @@ React Monitoring Dashboard
 Detection / Alert Information
 ---
 
----
+```
 
 ## ✨ Key Features
 
@@ -547,12 +546,3 @@ It is intended as a decision-support system and should not replace professional 
 This project is available under the license included in this repository.
 
 ---
-
-### After pasting
-
-Just do:
-
-**GitHub → `README.md` → ✏️ Edit → Ctrl+A → paste → Commit changes.**
-
-Don't make any other changes to the repository right now. Once this is saved, **we'll move directly to the Seanergy preparation**, especially your **Poaching project explanation + likely AI/ML technical questions + HR questions**, because the drive is on August 3–4. 🚀
-```
