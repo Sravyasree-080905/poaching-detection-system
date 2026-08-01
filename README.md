@@ -1,5 +1,3 @@
-Yes 😊. You can **copy everything inside the code block below and paste it directly into your `README.md`**.
-
 ---markdown
 # 🌲 Intelligent Poaching Detection and Response System
 
