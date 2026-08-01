@@ -1,0 +1,25 @@
+from motor.motor_asyncio import AsyncIOMotorClient
+from core.config import settings
+
+class MongoDB:
+    client = None
+    db = None
+
+db = MongoDB()
+
+async def connect_to_mongo():
+    db.client = AsyncIOMotorClient(settings.MONGO_URI)
+    db.db = db.client[settings.DATABASE_NAME]
+    
+    # Create indexes
+    await db.db.users.create_index("email", unique=True)
+    
+    print(f"Connected to MongoDB: {settings.DATABASE_NAME}")
+
+async def close_mongo_connection():
+    if db.client:
+        db.client.close()
+        print("Closed MongoDB connection")
+
+def get_database():
+    return db.db
